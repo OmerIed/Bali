@@ -26,7 +26,7 @@ SECRET_KEY = 'jq%fib!^=5ib@n8nq-ualc^qv4%&m=zhvyc(c^a1b4g0m(uz2-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,7 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main-app.apps.BaliConfig'
+    'main_app.apps.BaliConfig',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'api',
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -80,6 +84,32 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
+
+
+# REST FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSIONS_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+
+AUTH_USER_MODEL = 'main_app.User'
+
+
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'SERIALIZERS': {
+        'user_create': 'api.serializers.UserCreateSerializer',
+        'user': 'api.serializers.UserCreateSerializer',
+    },
 }
 
 

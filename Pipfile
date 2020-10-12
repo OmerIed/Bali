@@ -7,6 +7,9 @@ verify_ssl = true
 
 [packages]
 django = "~=3.1.0"
+django-celery = "*"
+djangorestframework = "*"
+djoser = "*"
 
 [requires]
 python_version = "3.8"
