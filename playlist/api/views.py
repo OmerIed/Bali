@@ -15,7 +15,7 @@ from rest_framework.generics import ListAPIView
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 from django.http import HttpResponse
-
+from resources.credentials import CLIENT_ID, CLIENT_SECRET
 # create a specific genre details by title
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
@@ -130,8 +130,8 @@ class ApiAccountSongListView(ListAPIView):
 def update_song_data(request):
     # genres = Genre.objects.values_list('spotify_id', flat=True)
     genres = Genre.objects.all()
-    spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id='147bfd8a06454486ade277d9d82825f4',
-                                                                                client_secret='3030b3f1054d484291e16ea87982ecfd'))
+    spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id=CLIENT_ID,
+                                                                                client_secret=CLIENT_ID))
 
     playlist_dict = {'songs': []}
     for gen in genres:
